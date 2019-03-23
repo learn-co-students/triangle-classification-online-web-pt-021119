@@ -12,10 +12,11 @@ class Triangle
       raise TriangleError
     elsif self.s1 == self.s2 && self.s2 == self.s3 #equilateral
       :equilateral
-    elsif condition #scalene
+    elsif self.s1 != self.s2 && self.s2 != self.s3 && self.s3 != self.s1 #scalene
       :scalene
-    elsif condition #isosceles
+    elsif self.s1 == self.s2 || self.s2 == self.s3 || self.s3 == self.s1 #isosceles
       :isosceles
+    end
   end
 
   class TriangleError < StandardError
