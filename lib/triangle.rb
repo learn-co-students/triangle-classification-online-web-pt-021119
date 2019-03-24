@@ -15,28 +15,26 @@ class Triangle
       @valid = false
     elsif sides_array.any? {|side| side < 0}
       @valid = false
-    elsif # if the sum of the lengths of any two sides of a triangle is smaller than the length of the third side, then it is NOT VALID
+    # ADD ELSIF: if the sum of the lengths of any two sides of a triangle is smaller than the length of the third side, then it is
+    elsif sides_array.any? {|side| side.is_a?(Float)}
+      binding.pry
+      @valid = true
     else
       @valid = true
     end
-    @valid = true if @side1 == @side2 && @side1 == @side3
   end
 
   def kind
+    sides_array = [@side1, @side2, @side3]
     if self.valid? == false
       # raise an error if the triangle is invalid
-      begin
-        raise TriangleError
-      rescue TriangleError => error
-        puts error.message
-      end
+      raise TriangleError
     else
       @type = :equilateral if @side1 == @side2 && @side1 == @side3
-      # don't raise an error and return, as a symbol the type
-        # :equilateral
-          # equal sides
-        # :isosceles
-          # two sides equal
+      binding.pry
+      if
+        @type = :isosceles
+      end
         # :scalene
           # no equal sides
     end
@@ -44,8 +42,5 @@ class Triangle
   end
 
   class TriangleError < StandardError
-    def message
-      puts "That is illegal."
-    end
   end
 end
