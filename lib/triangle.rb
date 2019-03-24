@@ -1,39 +1,34 @@
 class Triangle
 
-  attr_accessor :side_one, :side_two, :side_three
+  attr_accessor :a, :b, :c
 
-  def initialize(side_one, side_two, side_three)
-    @side_one = side_one
-    @side_two = side_two
-    @side_three = side_three
+  def initialize(a, b, c)
+    @a = a
+    @b = b
+    @c = c
   end
 
   def kind
-    if @side_one <= 0 || @side_two <=0 || @side_three <=0
-      begin
-        raise TriangleError
-      rescue TriangleError => error
-          puts error.message
-      end
-    elsif @side_one + @side_two < @side_three || @side_one + @side_three < @side_two || @side_three + @side_two < @side_one
-      begin
-        raise TriangleError
-      rescue TriangleError => error
-          puts error.message
-      end
-    elsif @side_one == @side_two && @side_two == @side_three
-      "equilateral"
-    elsif @side_one == @side_two || @side_two == @side_three || @side_one == @side_three
-      "isosceles"
+    validate_tri
+    if a == b && b == c
+      :equilateral
+    elsif a == b || b == c || a == c
+      :isosceles
     else
-      "scalene"
+      :scalene
+    end
+  end
+
+  def validate_tri
+    if a <= 0 || b <= 0 || c <= 0
+      raise TriangleError
+    elsif a + b <= c || a + c <= b || b + c <= a
+      raise TriangleError
     end
   end
 
   class TriangleError < StandardError
-    def message
-      "That is not a valid triangle, try again."
-    end
+    puts "Invalid triangle. Please try again."
   end
 
 end
